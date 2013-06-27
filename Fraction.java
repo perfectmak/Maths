@@ -110,6 +110,16 @@ public class Fraction {
         return (String.valueOf(this.numer) + " / " + String.valueOf(this.denom));
     }
 
+    public void Inverse() {
+
+        int numer = this.numer;
+        int denom = this.denom;
+
+        this.numer = denom;
+        this.denom = numer;
+
+    }
+
     public boolean EvaluatesToZero() {
 
         if (this.numer == 0 || this.denom == 0) return true;
@@ -140,26 +150,19 @@ public class Fraction {
     public void addOver(int a) {
 
         Fraction intFraction  = new Fraction(a, 1);
-        Fraction ret = this.add(intFraction);
-        this.denom = ret.denom;
-        this.numer = ret.numer;
-        this.simplify();
+        this.addOver(intFraction);
 
     }
     public void addOver(float a) {
 
         Fraction floatFraction = new Fraction(a);
-        Fraction ret = this.add(floatFraction);
-        this.numer = ret.numer;
-        this.denom = ret.denom;
+        this.addOver(floatFraction);
 
     }
     public void addOver(double a) {
 
-        Fraction floatFraction = new Fraction(a);
-        Fraction ret = this.add(floatFraction);
-        this.numer = ret.numer;
-        this.denom = ret.denom;
+        Fraction doubleFraction = new Fraction(a);
+        this.addOver(doubleFraction);
 
     }
 
@@ -236,26 +239,19 @@ public class Fraction {
     public void subOver(int a) {
 
         Fraction intFraction  = new Fraction(a, 1);
-        Fraction ret = this.sub(intFraction);
-        this.denom = ret.denom;
-        this.numer = ret.numer;
-        this.simplify();
+        this.subOver(intFraction);
 
     }
     public void subOver(float a) {
 
         Fraction floatFraction = new Fraction(a);
-        Fraction ret = this.sub(floatFraction);
-        this.numer = ret.numer;
-        this.denom = ret.denom;
+        this.subOver(floatFraction);
 
     }
     public void subOver(double a) {
 
-        Fraction floatFraction = new Fraction(a);
-        Fraction ret = this.sub(floatFraction);
-        this.numer = ret.numer;
-        this.denom = ret.denom;
+        Fraction doubleFraction = new Fraction(a);
+        this.subOver(doubleFraction);
 
     }
 
@@ -313,8 +309,32 @@ public class Fraction {
 
     public void multiplyOver(Fraction a) {
 
+        this.numer *= a.numer;
+        this.denom *= a.denom;
+
+        this.simplify();
 
     }
+    public void multiplyOver(int a) {
+
+        this.numer *= a;
+
+        this.simplify();
+
+    }
+    public void multiplyOver(float a) {
+
+        Fraction floatFraction = new Fraction(a);
+        this.multiplyOver(floatFraction);
+
+    }
+    public void multiplyOver(double a) {
+
+        Fraction doubleFraction = new Fraction(a);
+        this.multiplyOver(doubleFraction);
+
+    }
+
     public Fraction multiply(Fraction a) {
 
         Fraction ret = new Fraction((this.numer * a.numer), (this.denom * a.denom));
@@ -338,6 +358,63 @@ public class Fraction {
 
         Fraction floatFraction = new Fraction(a);
         Fraction ret = this.multiply(floatFraction);
+        return ret;
+
+    }
+
+    public void divideOver(Fraction a) {
+
+        Fraction ret = this.divide(a);
+        this.numer = ret.numer;
+        this.denom = ret.denom;
+
+    }
+    public void divideOver(int a) {
+
+        Fraction intFraction = new Fraction(a);
+        this.divideOver(intFraction);
+
+    }
+    public void divideOver(float a) {
+
+        Fraction floatFraction = new Fraction(a);
+        this.divideOver(floatFraction);
+
+    }
+    public void divideOver(double a) {
+
+        Fraction doubleFraction = new Fraction(a);
+        this.divideOver(doubleFraction);
+
+    }
+
+    public Fraction divide(Fraction a) {
+
+        a.Inverse();
+        Fraction ret = this.multiply(a);
+        return ret;
+
+    }
+    public Fraction divide(int a) {
+
+        Fraction inverseFraction = new Fraction(1, a);
+        Fraction ret = this.multiply(inverseFraction);
+        return ret;
+
+    }
+    public Fraction divide(float a) {
+
+        Fraction floatFraction = new Fraction(a);
+        floatFraction.Inverse();
+        Fraction ret = this.multiply(floatFraction);
+        return ret;
+
+    }
+    public Fraction divide(double a) {
+
+        Fraction doubleFraction = new Fraction(a);
+        doubleFraction.Inverse();
+        Fraction ret = this.multiply(doubleFraction);
         return ret;
 
     }
